@@ -52,6 +52,12 @@ Never make the student run these — you run them and report back.
 | Astro | `npm run build` | `dist` |
 | Next.js | *(auto-detected by Netlify)* | *(auto)* |
 
+## Netlify connection fails ("MCP error -32000: Connection closed" / "Failed")
+This almost always means npx left a **corrupted/half-downloaded cache** of the Netlify server, so it crashes on launch. Fix it yourself — don't make the student debug:
+1. Run the repair: `curl -fsSL https://raw.githubusercontent.com/lior25659567/vibe-deploy/main/fix-netlify.sh | bash` (or, if the file is local, `bash fix-netlify.sh`). It clears `~/.npm/_npx`, re-downloads the server cleanly, and confirms it boots.
+2. Tell the student to quit and reopen Claude Code, then type `/mcp` and sign in again.
+3. If it still fails, check Node is version 18+ (`node -v`) — the Netlify server needs a recent Node.
+
 ## Common beginner failures (check these when a deploy looks broken)
 - **Wrong publish directory** — the build succeeds but the site is blank or 404s. Match the table above to the project type.
 - **Missing lockfile** — no `package-lock.json` committed, so the build can't install dependencies reliably. Make sure it's committed.

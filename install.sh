@@ -29,6 +29,12 @@ else
   echo "   • kept your existing .gitignore (left it alone)"
 fi
 
+# Pre-download the Netlify server so the first /mcp connects instantly
+# instead of timing out (a common "Connection closed" cause).
+echo "   • warming up the Netlify connector (one-time, ~30s)..."
+printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"warm","version":"1.0"}}}' \
+  | { npx -y @netlify/mcp >/dev/null 2>&1 & NPID=$!; sleep 30; kill "$NPID" 2>/dev/null; } || true
+
 echo ""
 echo "✅ Done! The deploy kit is installed."
 echo ""
