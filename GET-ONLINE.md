@@ -30,6 +30,14 @@ or, after you've made changes:
 
 That's it. Claude handles all the behind-the-scenes work and hands you back a link. No commands, no dashboards, no clicking around.
 
+**You can also just talk to Claude in Hebrew** — it understands and replies in Hebrew. For example:
+
+> **"תעלה לי את הפרויקט לאינטרנט"**
+
+or after you've made changes:
+
+> **"תעדכן את האתר שלי"**
+
 ## If something looks wrong
 
 Don't worry — you can't break anything. If a link doesn't work, the page looks empty, or you see a message you don't understand, **just tell Claude what you see** ("my site is blank" or "I got an error that says…") and it'll figure out the fix for you. Talking to Claude is always the answer.

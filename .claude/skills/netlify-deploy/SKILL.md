@@ -1,12 +1,15 @@
 ---
 name: netlify-deploy
-description: Put a project online and keep it updated. Use WHENEVER the user wants to publish, deploy, ship, "go live", "make it public", get a shareable link/URL, host their site, update their live site, or mentions Netlify or GitHub hosting — even if the word "deploy" is never said. If they ask "can people see this?" or "how do I send this to someone?", that counts too.
+description: Put a project online and keep it updated. Use WHENEVER the user wants to publish, deploy, ship, "go live", "make it public", get a shareable link/URL, host their site, update their live site, or mentions Netlify or GitHub hosting — even if the word "deploy" is never said. If they ask "can people see this?" or "how do I send this to someone?", that counts too. ALSO triggers on Hebrew requests, e.g. "תעלה לי את הפרויקט לאינטרנט", "תפרסם את האתר", "תוציא את זה לאוויר", "אני רוצה לינק לשתף", "תעדכן את האתר שלי", "תעלה את האתר", "איך אני מעלה את זה לאינטרנט", "אפשר שאנשים יראו את זה?", or any Hebrew phrasing about putting a project/site online, publishing, hosting, sharing a link, or updating a live site.
 ---
 
 # Netlify Deploy
 
 ## Golden rule
 The student NEVER types terminal commands and NEVER touches the Netlify dashboard. You run every Git and Netlify step yourself with your own tools. The only thing a student ever does by hand is a one-time browser sign-in (via `/mcp`). Talk warmly, in plain language, and do the work for them.
+
+## Speak the student's language
+**Reply in whatever language the student wrote in.** If they wrote in Hebrew, respond entirely in Hebrew — warm, friendly, and jargon-free — and give the final live link in Hebrew too (e.g. "האתר שלך עלה לאוויר! הנה הלינק: …"). The Git/Netlify commands you run stay the same; only your words to the student change. Match their language for the whole conversation, including error explanations and reassurance.
 
 ## Step 1 — Figure out where things stand
 Quietly check (don't make the student do this):
