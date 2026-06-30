@@ -12,6 +12,13 @@ set -uo pipefail
 
 echo "🔧 Repairing the Netlify connection..."
 
+# Netlify's server needs Node.js. If it's missing, stop with a clear message.
+if ! command -v node >/dev/null 2>&1 || ! command -v npx >/dev/null 2>&1; then
+  echo "❌ Node.js isn't installed, so the Netlify server can't run."
+  echo "   Install Node.js 18+ from https://nodejs.org, then run this again."
+  exit 1
+fi
+
 # 1. Remove the corrupted npx cache (the usual culprit).
 echo "   • clearing the download cache"
 rm -rf "${HOME}/.npm/_npx" 2>/dev/null || true

@@ -27,6 +27,10 @@ curl -fsSL https://raw.githubusercontent.com/lior25659567/vibe-deploy/main/insta
 This `install.sh` fetches `.claude/`, `.mcp.json`, `CLAUDE.md`, `GET-ONLINE.md` (and `.gitignore` if they don't have one) straight into the project. It won't overwrite an existing `.gitignore`.
 
 > Note: this one command is the *only* terminal line in the whole experience, and it's part of one-time setup (just like `/mcp`). Everyday use stays 100% conversational.
+>
+> The installer is **safe to re-run** — it merges into an existing `.mcp.json`/`CLAUDE.md`/`.gitignore` instead of overwriting them, and warns (rather than crashing) if Node.js or curl is missing.
+
+**Windows note:** the installer is a bash script, so on native Windows students should run it in **Git Bash** or a **GitHub Codespace** (recommended for the course — `gh` and `curl` are pre-installed there). On macOS/Linux/Codespaces it just works.
 
 ## How deployment is wired
 - The **Netlify connector** is configured via `.mcp.json` at **project scope**, so it travels with the repo. Each student authenticates **once** by typing `/mcp` and signing in to Netlify in the browser. After that, Claude deploys conversationally.

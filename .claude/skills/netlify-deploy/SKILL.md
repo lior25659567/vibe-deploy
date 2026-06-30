@@ -62,6 +62,23 @@ Never make the student run these — you run them and report back.
 | Astro | `npm run build` | `dist` |
 | Next.js | *(auto-detected by Netlify)* | *(auto)* |
 
+## Single-page apps (React Router, Vue Router, etc.) — fix refresh 404s
+If the app uses client-side routing, the homepage works but **refreshing any other page (or sharing a deep link) shows "Page not found."** Netlify needs a redirect telling it to serve `index.html` for all routes. Add it yourself:
+- Create `public/_redirects` (so it's copied into the build output) containing exactly:
+  `/*    /index.html   200`
+- Or add to `netlify.toml`:
+  `[[redirects]]\n  from = "/*"\n  to = "/index.html"\n  status = 200`
+Commit and push. This is the #1 "it worked then broke" issue for React apps.
+
+## Secrets and environment variables (never commit keys)
+If the project needs an API key or secret (Anthropic, OpenAI, a database URL, etc.):
+- It must live in **Netlify's environment variables** (set via the connector or Site settings → Environment variables), NOT in the code and NOT in a committed file.
+- Frontend bundles are public — a key used in browser code is exposed to everyone. Keys belong in a backend/serverless function (e.g. a Netlify Function), read from `process.env`.
+- Make sure `.env` is git-ignored. If a key was already committed, help the student remove it from history AND rotate (regenerate) the key — assume the old one is compromised.
+
+## Project isn't at the repo root (monorepo / subfolder)
+If the actual app lives in a subfolder (e.g. `app/`, `frontend/`, `web/`), set Netlify's **base directory** to that folder, and the publish directory relative to it (e.g. base `frontend`, build `npm run build`, publish `dist`). Otherwise the build runs in the wrong place and finds no `package.json`.
+
 ## Netlify connection fails ("MCP error -32000: Connection closed" / "Failed")
 This almost always means npx left a **corrupted/half-downloaded cache** of the Netlify server, so it crashes on launch. Fix it yourself — don't make the student debug:
 1. Run the repair: `curl -fsSL https://raw.githubusercontent.com/lior25659567/vibe-deploy/main/fix-netlify.sh | bash` (or, if the file is local, `bash fix-netlify.sh`). It clears `~/.npm/_npx`, re-downloads the server cleanly, and confirms it boots.
