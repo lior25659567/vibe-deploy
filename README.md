@@ -2,8 +2,18 @@
 
 A drop-in "deploy kit" that lets absolute-beginner students put their projects online by **only talking to Claude Code in plain language** — no terminal commands, no Netlify dashboard, no Git knowledge. Students copy a handful of files into their project root, sign in once, and from then on say things like "put my project online" or "update my live site." Claude does all the Git and Netlify work itself via its tools and the Netlify connector. The student-facing explainer is `GET-ONLINE.md`.
 
-## Hebrew support 🇮🇱
-The kit works in **English and Hebrew**. Students can write requests in Hebrew (e.g. **"תעלה לי את הפרויקט לאינטרנט"**, **"תעדכן את האתר שלי"**, **"תפרסם את האתר"**) and Claude triggers the same deploy flow and **replies in Hebrew** — the live link and any error explanations come back in Hebrew too. The underlying Git/Netlify commands are identical; only the conversation language changes. The one-time install command stays in English (it's a system command, not something to translate).
+## Bilingual: English & Hebrew 🇬🇧🇮🇱
+The kit works in **both English and Hebrew**. Claude triggers the same deploy flow either way and **replies in whatever language the student wrote in** — the live link and any error explanations come back in that language too. The underlying Git/Netlify commands are identical; only the conversation language changes. The one-time install command stays in English (it's a system command, not something to translate).
+
+Everyday phrases students can use:
+
+| English | עברית |
+|---|---|
+| "put my project online" | "תעלה לי את הפרויקט לאינטרנט" |
+| "update my live site" | "תעדכן את האתר שלי" |
+| "publish my site" | "תפרסם את האתר" |
+| "give me a link to share" | "אני רוצה לינק לשתף" |
+| "can people see this?" | "אפשר שאנשים יראו את זה?" |
 
 ## What's in the kit
 - `.mcp.json` — wires the Netlify connector (project scope).
