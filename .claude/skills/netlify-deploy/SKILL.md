@@ -84,7 +84,7 @@ If the actual app lives in a subfolder (e.g. `app/`, `frontend/`, `web/`), set N
 
 ## Netlify connection fails ("MCP error -32000: Connection closed" / "Failed")
 This almost always means npx left a **corrupted/half-downloaded cache** of the Netlify server, so it crashes on launch. Fix it yourself — don't make the student debug:
-1. Run the repair: `curl -fsSL https://raw.githubusercontent.com/lior25659567/vibe-deploy/main/fix-netlify.sh | bash` (or, if the file is local, `bash fix-netlify.sh`). It clears `~/.npm/_npx`, re-downloads the server cleanly, and confirms it boots.
+1. Run the repair. On Mac/Linux/Codespaces: `curl -fsSL https://raw.githubusercontent.com/lior25659567/vibe-deploy/main/fix-netlify.sh | bash` (or local `bash fix-netlify.sh`). On Windows PowerShell: `irm https://raw.githubusercontent.com/lior25659567/vibe-deploy/main/fix-netlify.ps1 | iex`. It clears the npx cache, re-downloads the server cleanly, and confirms it boots.
 2. Tell the student to quit and reopen Claude Code, then type `/mcp` and sign in again.
 3. If it still fails, check Node is version 18+ (`node -v`) — the Netlify server needs a recent Node.
 
