@@ -19,6 +19,12 @@ Quietly check (don't make the student do this):
 
 Tell the student what you found in friendly terms ("Looks like this isn't online yet — I'll set that up for you now.").
 
+## Safety first — back up before any risky Git step
+The student's work is precious and they can't recover it themselves. **Before anything that rewrites history or could lose work** — a rebase, a conflict resolution, a reset, or a `--force-with-lease` push — make a quick, free safety backup first:
+- Snapshot the current state on a backup branch: `git branch backup-before-deploy` (it just bookmarks the current commit — instant, harmless, and lets you restore with `git checkout backup-before-deploy` if anything goes sideways). Use a fresh name if one already exists.
+- For extra peace of mind on a big/old project, also copy the whole folder once (e.g. duplicate it in Finder/Explorer) before you start.
+- A plain commit + push of new work is safe and does NOT need a backup. Reserve backups for history-rewriting steps. Tell the student plainly: "Before I tidy up your history, I'm making a backup so nothing can be lost."
+
 ## Step 2 — Do the Git setup yourself
 If it's not a repo or not on GitHub, handle all of it:
 1. `git init` (if needed) and make sure the branch is `main`.
@@ -40,6 +46,7 @@ If it's not a repo or not on GitHub, handle all of it:
 1. Commit everything outstanding first: `git add -A && git commit -m "Save all my latest work"` (skip if nothing to commit).
 2. Try `git push`. A huge backlog of commits can also trip the size limit above — apply the `http.postBuffer` fix if so.
 3. **If the push is REJECTED** with `non-fast-forward`, `Updates were rejected`, or "the remote contains work that you do not have locally", the GitHub copy moved on (edited on github.com, or pushed from another computer). Reconcile, don't force-push blindly:
+   - **First make a safety backup** (see "Safety first" above): `git branch backup-before-deploy` so the student's current state is preserved no matter what.
    - `git pull --rebase origin main` to replay the student's local work on top of the remote.
    - If it reports conflicts, open the conflicted files, resolve them sensibly (keep the student's intended content — ask them in plain language if it's genuinely ambiguous), then `git add -A` and `git rebase --continue`.
    - Then `git push`.
