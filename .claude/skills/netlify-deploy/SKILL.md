@@ -36,6 +36,16 @@ If it's not a repo or not on GitHub, handle all of it:
 1. Raise the buffer and retry: `git config http.postBuffer 524288000 && git push origin main`.
 2. If it still fails, the repo has very large binaries (screenshots, videos, datasets). Consider whether they belong online — large preview images can be removed or shrunk. Never silently drop the student's real content; tell them warmly what's oversized and why.
 
+**Project that hasn't been pushed in a long time (lots of catching up).** Common for a student who set up git ages ago and only now deploys. Handle it calmly:
+1. Commit everything outstanding first: `git add -A && git commit -m "Save all my latest work"` (skip if nothing to commit).
+2. Try `git push`. A huge backlog of commits can also trip the size limit above — apply the `http.postBuffer` fix if so.
+3. **If the push is REJECTED** with `non-fast-forward`, `Updates were rejected`, or "the remote contains work that you do not have locally", the GitHub copy moved on (edited on github.com, or pushed from another computer). Reconcile, don't force-push blindly:
+   - `git pull --rebase origin main` to replay the student's local work on top of the remote.
+   - If it reports conflicts, open the conflicted files, resolve them sensibly (keep the student's intended content — ask them in plain language if it's genuinely ambiguous), then `git add -A` and `git rebase --continue`.
+   - Then `git push`.
+   - Only consider `git push --force-with-lease` if you're certain the remote history is junk the student wants to discard — confirm with them first, and never plain `--force`.
+4. Reassure the student throughout: "You've got a lot of unsaved changes from a while back — I'm saving them all and syncing with GitHub now. Nothing's lost."
+
 ## Step 3 — Connect to Netlify (stay conversational)
 **Prefer the Netlify connector / CLI** so it all happens through your tools:
 - Use the connector to create a new Netlify site and link it to the GitHub repo, enabling continuous deploys from `main`.
