@@ -23,6 +23,16 @@ If it's not a repo or not on GitHub, handle all of it:
 3. Stage and make the first commit: `git add -A && git commit -m "Initial commit"`.
 4. Create the GitHub repo and push. Prefer `gh repo create <name> --source=. --public --push`. In Codespaces `gh` is usually already signed in; on a personal laptop the student signs into GitHub once in the browser, then you handle every push after that.
 
+**ALWAYS verify the WHOLE project is actually committed — even on an existing repo.** A common trap: only one file (e.g. `README.md`) got committed and all the real code is still untracked, so the deployed site is empty. Don't assume; check:
+- `git status --short` — any `??` (untracked) or `M` (modified) lines mean work isn't saved yet.
+- `git ls-tree -r --name-only HEAD | wc -l` — if HEAD has far fewer files than the project folder, the first commit was incomplete.
+- Fix by staging and committing everything: `git add -A && git commit -m "Add full project"`, then push.
+- Then confirm nothing is unpushed: `git log origin/main..HEAD --oneline` should be empty after the push.
+
+**If `git push` fails** (`error: RPC failed; HTTP 400`, `send-pack: unexpected disconnect`, `the remote end hung up`), it's almost always a large push (big images/assets). Fix it yourself:
+1. Raise the buffer and retry: `git config http.postBuffer 524288000 && git push origin main`.
+2. If it still fails, the repo has very large binaries (screenshots, videos, datasets). Consider whether they belong online — large preview images can be removed or shrunk. Never silently drop the student's real content; tell them warmly what's oversized and why.
+
 ## Step 3 — Connect to Netlify (stay conversational)
 **Prefer the Netlify connector / CLI** so it all happens through your tools:
 - Use the connector to create a new Netlify site and link it to the GitHub repo, enabling continuous deploys from `main`.
@@ -63,6 +73,9 @@ This almost always means npx left a **corrupted/half-downloaded cache** of the N
 - **Missing lockfile** — no `package-lock.json` committed, so the build can't install dependencies reliably. Make sure it's committed.
 - **Pushed to the wrong branch** — Netlify watches `main`; if changes went to another branch, nothing updates. Get them onto `main`.
 - **Leaked `.env`** — secrets got committed. Make sure `.env` is in `.gitignore`; if it was already pushed, help them remove it from history and rotate the secret.
+- **Incomplete first commit** — only the README (or a couple of files) is in the repo and the real code is untracked, so the live site is empty. See Step 2's "verify the WHOLE project is committed" check.
+- **Push rejected as too big** (`HTTP 400` / `RPC failed`) — large images/assets. See Step 2's `http.postBuffer` fix.
+- **AI SDK / secret-using code in a browser app** — if the build logs show `Module "node:path"/"node:fs" has been externalized for browser compatibility` (often from `@anthropic-ai/sdk`, `openai`, database drivers, etc.), the student is calling a server-only SDK directly from frontend code. Two problems: (1) it won't actually work in the browser, and (2) **any API key it uses would be shipped inside the public site bundle — a leaked secret.** Warn the student clearly and kindly, and don't treat the deploy as "done" until they know. The real fix is to move that call to a backend/serverless function (e.g. a Netlify Function) with the key stored as a Netlify environment variable — never in frontend code or committed files. The site may still deploy, but that feature will be broken and the key exposed.
 
 ## Tone reminder
 These are absolute beginners. Be warm and encouraging, skip the jargon, run every command for them, and celebrate when their site goes live.
