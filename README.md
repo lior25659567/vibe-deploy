@@ -2,6 +2,9 @@
 
 A drop-in "deploy kit" that lets absolute-beginner students put their projects online by **only talking to Claude Code in plain language** — no terminal commands, no Netlify dashboard, no Git knowledge. Students copy a handful of files into their project root, sign in once, and from then on say things like "put my project online" or "update my live site." Claude does all the Git and Netlify work itself via its tools and the Netlify connector. The student-facing explainer is `GET-ONLINE.md`.
 
+## Hebrew support 🇮🇱
+The kit works in **English and Hebrew**. Students can write requests in Hebrew (e.g. **"תעלה לי את הפרויקט לאינטרנט"**, **"תעדכן את האתר שלי"**, **"תפרסם את האתר"**) and Claude triggers the same deploy flow and **replies in Hebrew** — the live link and any error explanations come back in Hebrew too. The underlying Git/Netlify commands are identical; only the conversation language changes. The one-time install command stays in English (it's a system command, not something to translate).
+
 ## What's in the kit
 - `.mcp.json` — wires the Netlify connector (project scope).
 - `CLAUDE.md` — short, always-loaded instructions pointing Claude at the deploy skill.
