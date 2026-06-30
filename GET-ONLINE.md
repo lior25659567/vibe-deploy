@@ -4,11 +4,13 @@ This little kit lets you put your project on the **real internet** — a link yo
 
 ## One-time setup (do this once)
 
-1. **Copy these into the main folder of your project** (the same folder your project lives in):
-   - the `.claude` folder
-   - `.mcp.json`
-   - `CLAUDE.md`
-   - `.gitignore`
+1. **Add the kit to your project.** Open your project folder, then paste this **one line** into the terminal and press enter:
+
+   ```
+   curl -fsSL https://raw.githubusercontent.com/lior25659567/vibe-deploy/main/install.sh | bash
+   ```
+
+   This is the *only* command you'll ever type. It drops the kit into your project for you.
 
 2. **Quit Claude Code and open it again.** This lets it notice the new files. (Just close it fully and reopen — that's it.)
 
